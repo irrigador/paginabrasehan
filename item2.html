@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página com Canvas</title>
+    <style>
+  body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .quadro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <H1>Algoritmo de Bresenham</H1>
+    <div class="container">
+        <div class="quadro">
+            <h1>Vertical</h1>
+            <canvas id="canvas1" width="200" height="200"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>Horizontal</h1>
+            <canvas id="canvas2" width="200" height="200"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>Tracejado para construção de retas </h1>
+            <canvas id="canvas3" width="200" height="200"></canvas>
+        </div>
+        <div class="quadro">
+            <h1>Malha quadriculada</h1>
+            <p>Como o item 2.3 o algortimo precisa estar em toda janela </p>
+            <button> <a href="../Computação Gráfica/brasehanQ3.html"> > </a></button>
+        </div>
+    </div>
+
+    <script>
+
+window.onload = function() {
+       
+            var canvas = document.getElementById("canvas3");
+            var ctx = canvas.getContext("2d");
+
+            // Inclinação da reta (tendendo ao infinito para vertical)
+            var m = Infinity;
+
+            // Função para calcular a inclinação em relação a x
+            function slopeFunction(x) {
+                return m;
+            }
+
+            // Calculando os pontos da reta
+            var startX = 50; // Ponto inicial no eixo x
+            var step = 10; // Passo para avançar ao longo do eixo y
+            var y = 0; // Ponto inicial no eixo y
+
+            ctx.beginPath();
+            ctx.moveTo(startX, 0);
+
+            // Definindo o estilo da linha como tracejada
+            ctx.setLineDash([5, 5]); // Define o padrão de tracejado: [comprimento do traço, comprimento do espaço]
+
+            while (y < canvas.height) {
+                var slope = slopeFunction(y);
+                var endX = startX + (1 / slope * step);
+                ctx.lineTo(endX, y + step);
+                y += step;
+                startX = endX;
+            }
+
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+
+            var canvas = document.getElementById("canvas1");
+            var ctx = canvas.getContext("2d");
+
+            // Inclinação da reta (tendendo ao infinito para vertical)
+            var m = Infinity;
+
+            // Função para calcular a inclinação em relação a x
+            function slopeFunction(x) {
+                return m;
+            }
+
+            // Calculando os pontos da reta
+            var startX = 50; // Ponto inicial no eixo x
+            var step = 10; // Passo para avançar ao longo do eixo y
+            var y = 0; // Ponto inicial no eixo y
+
+            ctx.beginPath();
+            ctx.moveTo(startX, 0);
+
+            while (y < canvas.height) {
+                var slope = slopeFunction(y);
+                var endX = startX + (1 / slope * step);
+                ctx.lineTo(endX, y + step);
+                y += step;
+                startX = endX;
+            }
+
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+        
+
+            var canvas = document.getElementById("canvas2");
+            var ctx = canvas.getContext("2d");
+
+            // Inclinação da reta (horizontal)
+            var m = 0;
+
+            // Função para calcular a inclinação em relação a x
+            function slopeFunction(x) {
+                return m;
+            }
+
+            // Calculando os pontos da reta
+            var startY = 50; // Ponto inicial no eixo y
+            var step = 10; // Passo para avançar ao longo do eixo x
+            var x = 0; // Ponto inicial no eixo x
+
+            ctx.beginPath();
+            ctx.moveTo(0, startY);
+
+            while (x < canvas.width) {
+                var slope = slopeFunction(x);
+                var endY = startY + (slope * step);
+                ctx.lineTo(x + step, endY);
+                x += step;
+                startY = endY;
+            }
+
+            ctx.strokeStyle = "blue";
+            ctx.stroke();
+        
+        };
+    </script>
+</body>
+</html>
